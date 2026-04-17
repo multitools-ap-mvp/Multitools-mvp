@@ -1,6 +1,7 @@
 # Changelog for
-# ApexMultiTools 
-# GreekApp Twitch
+
+## ApexMultiTools 
+## Multi Tool Dashboard 
 
 ---
 * All notable changes to this project will be documented in this file.
@@ -14,16 +15,16 @@
 ---
 
 <------------------------->
-# Name    | GreekApp Twitch 
-# Author  | Amstaff / Apex
-# Team    | Multi Tools
-# Version | 1.3.0 Stable
-# Updated | 2026-04-17
+### Name    | Multi Tools Dashboard 
+### Author  | Amstaff / Apex
+### Team    | Multi Tools
+### Version | 1.0.0 Beta
+### Updated | 2026-04-17
 <-------------------------->
 
 ---
 
-## [Unreleased] v1.4.0 - Date
+## [Unreleased] v1.1.0 - Date
 
 ### Added
 
@@ -47,7 +48,7 @@ description when links are shared are language-appropriate
 - Trademark sign previously shown after the project description in version 
 0.3.0
 
-## [1.3.0] - 2026-04-17
+## [1.0.0-beta] - 2026-04-17
 
 ### Added
 
@@ -68,38 +69,6 @@ description when links are shared are language-appropriate
 - Unused normalize.css file.
 - Identical links assigned in each translation file.
 - Duplicate index file for the english version.
-
-## [1.2.0] - 2026-03-15
-
-### Added
-
-- Changelog
-- 
-
-### Fixed
-
-- Wronglink in Readme 
-
-## [1.1.0-beta] - 2026
-
-### Added
-
-- Theme & Logo Designed by [Apex]
-
-### Changed
-
-- Changelog Style 
-
-### Removed
-
-
-## [1.0.0-mvp] - 2026
-
-### Added
-
-- Basic design
-- Directory Tree
-
 
 ---
 [unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.1...HEAD
