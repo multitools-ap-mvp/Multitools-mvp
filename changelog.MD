@@ -1,7 +1,12 @@
 # Changelog for
 
-## ApexMultiTools 
-## Multi Tool Dashboard 
+---
+
+- ApexMultiTools 
+
+- Multi Tool Dashboard 
+
+---
 
 ---
 * All notable changes to this project will be documented in this file.
@@ -25,6 +30,46 @@
 ---
 
 ## [Unreleased] v1.1.0 - Date
+
+### In Production | Coming Features
+```
+
+* Keylogger
+Windows
+Linux
+Android
+IOS
+
+* Terminal Shell 
+For sending cmd to remote 9Boxes
+Bash , SH and? 
+
+* Config & Environments 
+Load .config Files to shell
+Load .ini Files for shell
+
+* Cloud 
+Selfhosted 2GB Cloud Space
+Save your Credentials and Config Files on Cloud and load them from there.
+End 2 End Encrypted
+
+* Tools
+Markdown Editor 
+Json Formater 
+Base64 Encoder & Decrypter
+
+* SMTP | Email 
+Server & Client
+Host your own Email Sever
+Incl DNS ddns Domain
+
+* Ai TTP Runner
+https://github.com/Antonlovesdnb/TTPRunner?fbclid=IwY2xjawRPEZhleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAwzNTA2ODU1MzE3MjgAAR7_sIaCgjXvVRdbFPRY4KM3eAwUHSqDpabuXimE22m2zpRmc8Qg7KzjfdXjJw_aem_gMG2pWLZ1xZjIbnyDKFAnQ
+Autonomous TTP execution agent for penntest
+Run a threat search on selected Environment
+Feed threat report To TTP, It builds the attack plan. You approve. It executes.
+Using our ApexLLM Ai Model with 30+ Tools modules you can select from.
+```
 
 ### Added
 
