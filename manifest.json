@@ -1,0 +1,21 @@
+{
+  "name": "Apex Multi Tool DashBoard",
+  "short_name": "ApexDash",
+  "description": "A hacker-themed multi-tool dashboard for development setups.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#00ff41",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192.png?text=Apex",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512.png?text=Apex",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

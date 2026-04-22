@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <title>Apex Multi Tool DashBoard</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-panel: #0a0a0a;
+            --neon-green: #00ff41;
+            --neon-green-dim: #008f11;
+            --border-glow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--neon-green);
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-panel);
+            border-right: 1px solid var(--neon-green-dim);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            transition: width 0.3s;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--neon-green-dim);
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(0, 255, 65, 0.1);
+            border-left: 3px solid var(--neon-green);
+            box-shadow: inset 10px 0 10px -10px var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Banner & Typing Effect */
+        .banner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            text-align: center;
+        }
+
+        .banner-text {
+            font-size: 3rem;
+            font-weight: bold;
+            border-right: 4px solid var(--neon-green);
+            white-space: nowrap;
+            overflow: hidden;
+            text-shadow: 0 0 20px var(--neon-green);
+            animation: blink 0.75s step-end infinite;
+        }
+
+        .sys-info {
+            margin-top: 20px;
+            color: var(--neon-green-dim);
+            font-size: 1rem;
+        }
+
+        /* Mock Terminal Windows for sections */
+        .terminal-box {
+            border: 1px solid var(--neon-green-dim);
+            background: rgba(0, 20, 0, 0.3);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: var(--border-glow);
+            margin-top: 20px;
+            min-height: 200px;
+        }
+
+        .terminal-header {
+            border-bottom: 1px dashed var(--neon-green-dim);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon-green) }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Extendable Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            [ root@apex ]~#
+        </div>
+        <!-- Add new menu items here by duplicating these divs -->
+        <div class="menu-item active" data-target="home">
+            <span>>_ Home</span>
+        </div>
+        <div class="menu-item" data-target="apps">
+            <span>>_ Apps</span>
+        </div>
+        <div class="menu-item" data-target="tools">
+            <span>>_ Tools</span>
+        </div>
+        <div class="menu-item" data-target="ftp">
+            <span>>_ FTP Server</span>
+        </div>
+        <div class="menu-item" data-target="vps">
+            <span>>_ Remote VPS</span>
+        </div>
+        <div class="menu-item" data-target="ssh">
+            <span>>_ SSH Shell</span>
+        </div>
+        <div class="menu-item" data-target="keylogger">
+            <span>>_ Keylogger</span>
+        </div>
+        <div class="menu-item" data-target="terminals">
+            <span>>_ Terminals & Shell</span>
+        </div>
+        <div class="menu-item" data-target="devtools">
+            <span>>_ Dev Tools</span>
+        </div>
+        <div class="menu-item" data-target="smtp">
+            <span>>_ SMTP | Email</span>
+        </div>
+        <div class="menu-item" data-target="ttp">
+            <span>>_ AI TTP Runner</span>
+        </div>
+        <div class="menu-item" data-target="ftps">
+            <span>>_ FTPS Server</span>
+        </div>
+        <div class="menu-item" data-target="otp">
+            <span>>_ OTP Key Vault</span>
+        </div>
+        <div class="menu-item" data-target="spoofers">
+            <span>>_ Spoofers</span>
+        </div>
+        <div class="menu-item" data-target="captcha">
+            <span>>_ CAPTCHA Solver</span>
+        </div>
+        <div class="menu-item" data-target="network">
+            <span>>_ Network Manager</span>
+        </div>
+        <div class="menu-item" data-target="nfc">
+            <span>>_ NFC & RFID</span>
+        </div>
+        <div class="menu-item" data-target="pdf">
+            <span>>_ PDF Editor</span>
+        </div>
+        <div class="menu-item" data-target="tickets">
+            <span>>_ Ticket Generator</span>
+        </div>
+        <div class="menu-item" data-target="config">
+            <span>>_ Config & Envs</span>
+        </div>
+        <div class="menu-item" data-target="cloud">
+            <span>>_ Cloud</span>
+        </div>
+        <div class="menu-item" data-target="selfhost">
+            <span>>_ Selfhost Setup</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <!-- Landing Page / Home -->
+        <div id="home" class="section active">
+            <div class="banner-container">
+                <div class="banner-text" id="typewriter"></div>
+                <div class="sys-info">> System initialized. Waiting for commands...</div>
+            </div>
+        </div>
+
+        <!-- Apps Section -->
+        <div id="apps" class="section">
+            <h2>[ Applications Container ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/apps$ ls -la</span>
+                    <span>Status: ONLINE</span>
+                </div>
+                <p>> Docker UI [Running]</p>
+                <p>> Portainer [Running]</p>
+                <p>> Gitlab    [Sleeping]</p>
+                <br>
+                <p class="sys-info">Interactive app grids will load here...</p>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div id="tools" class="section">
+            <h2>[ Dev Tools ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/tools$ execute.sh</span>
+                </div>
+                <p>> REST API Tester</p>
+                <p>> JSON Formatter</p>
+                <p>> Base64 Encoder/Decoder</p>
+            </div>
+        </div>
+
+        <!-- FTP Section (legacy redirect note) -->
+        <div id="ftp" class="section">
+            <h2>[ FTP File Server ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/ftp$ ftp connect</span>
+                    <span>Port: 21</span>
+                </div>
+                <p style="color: yellow;">[!] Awaiting secure connection...</p>
+                <p>> /var/www/html/ [drwxr-xr-x]</p>
+                <p>> /backups/      [drwxr-xr-x]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">[i] This section has been upgraded — see FTPS Server in the menu.</p>
+            </div>
+        </div>
+
+        <!-- Remote VPS Section -->
+        <div id="vps" class="section">
+            <h2>[ Remote Linux VPS ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/vps$ ssh root@192.168.1.100</span>
+                    <span>Encrypted: RSA-2048</span>
+                </div>
+                <p>Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-82-generic x86_64)</p>
+                <br>
+                <p>System load:  0.08               Processes:           114</p>
+                <p>Usage of /:   34.2% of 49.1GB    Users logged in:     1</p>
+                <p>Memory usage: 12%                IPv4 address for eth0: 192.168.1.100</p>
+                <br>
+                <p>root@vps:~# <span style="animation: blink 1s step-end infinite; border-right: 10px solid var(--neon-green);">&nbsp;</span></p>
+            </div>
+        </div>
+
+        <!-- SSH Shell Section -->
+        <div id="ssh" class="section">
+            <h2>[ SSH Shell ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/ssh$ ssh-connect</span>
+                    <span>Port: 22 | Encrypted: RSA-4096</span>
+                </div>
+                <p>> Host: <span style="color:#fff;">________________</span></p>
+                <p>> User: <span style="color:#fff;">________________</span></p>
+                <p>> Auth: <span style="color:#fff;">[Password] [Key File]</span></p>
+                <br>
+                <p style="color: yellow;">[!] Enter credentials and open terminal session.</p>
+                <p style="color: var(--neon-green-dim);">> Session will open in embedded terminal below...</p>
+            </div>
+        </div>
+
+        <!-- Keylogger Section -->
+        <div id="keylogger" class="section">
+            <h2>[ Keylogger ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/keylogger$ ls --targets</span>
+                    <span>Status: STANDBY</span>
+                </div>
+                <p>> Windows          [Deploy]</p>
+                <p>> Linux            [Deploy]</p>
+                <p>> Android          [Deploy]</p>
+                <p>> iOS              [Deploy]</p>
+                <br>
+                <p>> Receiver/Handler Server [Configure]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Select target platform to generate payload and configure handler...</p>
+            </div>
+        </div>
+
+        <!-- Terminals & Shell Section -->
+        <div id="terminals" class="section">
+            <h2>[ Terminals & Shell ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/shells$ list --all</span>
+                    <span>Active: 0</span>
+                </div>
+                <p>> Bash Shell      [Win]      [Launch]</p>
+                <p>> SH Shell        [Python]   [Launch]</p>
+                <p>> Zsh Shell       [Linux]    [Launch]</p>
+                <p>> Termux          [Android]  [Launch]</p>
+                <br>
+                <p>> SHELLS          [Remote Shells Manager]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Select a shell environment to spawn an interactive session...</p>
+            </div>
+        </div>
+
+        <!-- Dev Tools Section (extended) -->
+        <div id="devtools" class="section">
+            <h2>[ Dev Tools ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/devtools$ execute.sh</span>
+                    <span>Ready</span>
+                </div>
+                <p>> Markdown Editor              [Open]</p>
+                <p>> JSON Formatter               [Open]</p>
+                <p>> Base64 Encoder / Decoder     [Open]</p>
+                <p>> OpenAPI / Swagger Editor     [Open]</p>
+                <p>> cURL Sender                  [Open]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Select a tool to launch in the workspace panel...</p>
+            </div>
+        </div>
+
+        <!-- SMTP | Email Section -->
+        <div id="smtp" class="section">
+            <h2>[ SMTP | Email Server ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/smtp$ mailserver --status</span>
+                    <span>Port: 25 / 587</span>
+                </div>
+                <p>> Server | Client       [Manage]</p>
+                <p>> Install | Settings    [Configure]</p>
+                <br>
+                <p style="color: yellow;">[!] Host your own email infrastructure.</p>
+                <p style="color: var(--neon-green-dim);">> SMTP relay, inbox management and DKIM/SPF/DMARC config available here...</p>
+            </div>
+        </div>
+
+        <!-- AI TTP Runner Section -->
+        <div id="ttp" class="section">
+            <h2>[ AI TTP Runner ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/ttp$ agent --init</span>
+                    <span>Mode: AUTONOMOUS</span>
+                </div>
+                <p style="color: yellow;">[!] Autonomous TTP execution agent for pentesting.</p>
+                <br>
+                <p>> TTP Runner       [Execute Plan]</p>
+                <p>> Environment      [Select Target]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Run a threat search on selected environment.</p>
+                <p style="color: var(--neon-green-dim);">> Feed threat report to TTP — it builds the attack plan.</p>
+                <p style="color: var(--neon-green-dim);">> You approve. It executes.</p>
+            </div>
+        </div>
+
+        <!-- FTPS Section -->
+        <div id="ftps" class="section">
+            <h2>[ FTPS Server ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/ftps$ ftps --connect ftp://127.0.0.1:21</span>
+                    <span>AES-256-GCM | TLS</span>
+                </div>
+                <p>> Setup Host       [1-Click Auto Setup]</p>
+                <p>> FTP Client       [Connect]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> FTPS (FTP over SSL/TLS) — AES-256-GCM encryption.</p>
+                <p style="color: var(--neon-green-dim);">> Auto setup server with 1 click on any device.</p>
+            </div>
+        </div>
+
+        <!-- OTP Key Vault Section -->
+        <div id="otp" class="section">
+            <h2>[ OTP Key Vault ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/otp$ vault --status</span>
+                    <span>Vault: LOCKED</span>
+                </div>
+                <p>> OTP Generator    [Generate]</p>
+                <p>> OTP Search       [Scan Environment]</p>
+                <p>> Settings         [Configure]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Generate OTP passwords for connected tools.</p>
+                <p style="color: var(--neon-green-dim);">> Scan selected environments for exposed OTPs.</p>
+                <p style="color: var(--neon-green-dim);">> 1-Click: auto-load OTP into any tool or site.</p>
+            </div>
+        </div>
+
+        <!-- Spoofers Section -->
+        <div id="spoofers" class="section">
+            <h2>[ Spoofers ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/spoofers$ ls --modules</span>
+                    <span>Status: IDLE</span>
+                </div>
+                <p>> DDNS             [Spoof]</p>
+                <p>> GPS / Location   [Spoof]</p>
+                <p>> Website Cloner   [Clone]</p>
+                <p>> SMS              [Spoof]</p>
+                <p>> Email            [Spoof]</p>
+                <p>> Bluetooth        [Spoof]</p>
+                <p>> MAC Address      [Spoof]</p>
+                <p>> Access Point     [Spoof]</p>
+                <p>> SEToolKit        [Launch]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Select a spoofing module to configure and execute...</p>
+            </div>
+        </div>
+
+        <!-- CAPTCHA Solver Section -->
+        <div id="captcha" class="section">
+            <h2>[ CAPTCHA Solver ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/captcha$ solver --auto</span>
+                    <span>Mode: AUTO-VALIDATE</span>
+                </div>
+                <p>> NopeCHA         [Text CAPTCHA Solver]   [Enable]</p>
+                <p>> Buster          [Audio CAPTCHA Solver]  [Enable]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Auto-validation active. Solvers will intercept and bypass CAPTCHAs in real time.</p>
+            </div>
+        </div>
+
+        <!-- Network Manager Section -->
+        <div id="network" class="section">
+            <h2>[ Network Manager ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/net$ netmanager --scan</span>
+                    <span>Interfaces: Scanning...</span>
+                </div>
+                <p>> WiFi | LAN       [Enumeration & Tools]</p>
+                <p>> Bluetooth        [Enumeration & Tools]</p>
+                <p>> GSM 4G/5G        [Enumeration & Tools]</p>
+                <br>
+                <p>> Extensive Scan Functions</p>
+                <p>> Capture Results  [7+ Export Formats]</p>
+                <br>
+                <p>> Bruteforcers     [WiFi | BT | SiP]</p>
+                <p>> Scrapy Packet Tools</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Select interface to begin enumeration and attack surface mapping...</p>
+            </div>
+        </div>
+
+        <!-- NFC & RFID Section -->
+        <div id="nfc" class="section">
+            <h2>[ NFC & RFID ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/nfc$ nfc --probe</span>
+                    <span style="color: yellow;">Status: BETA</span>
+                </div>
+                <p style="color: yellow;">[!] Still in BETA Testing — tools under active development.</p>
+                <br>
+                <p>> NFCGate          [NFC Relay Between Devices]   [Launch]</p>
+                <p>> Proxmark3        [RFID Read / Clone / Emulate] [Launch]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Connect hardware and select tool to begin NFC/RFID operations...</p>
+            </div>
+        </div>
+
+        <!-- PDF Editor Section -->
+        <div id="pdf" class="section">
+            <h2>[ PDF Editor — by ApexA ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/pdf$ apex-pdf --start</span>
+                    <span>AI-Powered</span>
+                </div>
+                <p style="color: var(--neon-green-dim);">> LLM/AI powered PDF editor. Works on all PDF types.</p>
+                <p style="color: var(--neon-green-dim);">> Callable from the option menu anywhere on the Dashboard.</p>
+                <br>
+                <p>> Create PDF       [New]</p>
+                <p>> Edit PDF         [Open File]</p>
+                <p>> AI Assist        [Prompt to Edit]</p>
+            </div>
+        </div>
+
+        <!-- Ticket Generator Section -->
+        <div id="tickets" class="section">
+            <h2>[ Ticket Generator — ApexMultiTools Travel ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/tickets$ ticket --init</span>
+                    <span>15+ Ticket Types</span>
+                </div>
+                <p>> Load Source Ticket</p>
+                <p>> Convert to Markdown</p>
+                <p>> Add / Edit Your Information</p>
+                <p>> Generate PDF with Working QR Code</p>
+                <p>> Generate Ticket</p>
+                <br>
+                <p>> Optional: Email Delivery via SMTP Server</p>
+                <p>> Optional: Download as .pdf</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Load a source ticket, customize, and generate your output...</p>
+            </div>
+        </div>
+
+        <!-- Config & Environments Section -->
+        <div id="config" class="section">
+            <h2>[ Config & Environments ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/config$ env --list</span>
+                    <span>Profiles: 0 loaded</span>
+                </div>
+                <p>> Load | Save .shell Files              [Manage]</p>
+                <p>> Load | Save .ini Environment Files    [Manage]</p>
+                <p>> Load | Save .config Setup Files       [Manage]</p>
+                <br>
+                <p>> Security Settings</p>
+                <p style="color: var(--neon-green-dim);">&nbsp;&nbsp; PGP Keys | Certificates | Encryption Config</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Switch between saved environments and configurations on the fly...</p>
+            </div>
+        </div>
+
+        <!-- Cloud Section -->
+        <div id="cloud" class="section">
+            <h2>[ Cloud — OwnCloud ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/cloud$ owncloud --connect</span>
+                    <span>E2E Encrypted | 2GB</span>
+                </div>
+                <p style="color: var(--neon-green-dim);">> Self-hosted 2GB OwnCloud space. End-to-End encrypted.</p>
+                <p style="color: var(--neon-green-dim);">> Store credentials, config files and notes — quick load from anywhere.</p>
+                <br>
+                <p>> Login            [Authenticate]</p>
+                <br>
+                <p style="color: yellow;">[!] All data encrypted before upload. Keys never leave your device.</p>
+            </div>
+        </div>
+
+        <!-- Selfhost Setup Section -->
+        <div id="selfhost" class="section">
+            <h2>[ Selfhost Menu ]</h2>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span>user@apex:~/selfhost$ install --wizard</span>
+                    <span>Mode: SETUP</span>
+                </div>
+                <p>> Install Script       [Run]</p>
+                <p>> Dependencies         [Check / Install]</p>
+                <p>> Python install.sh    [Execute]</p>
+                <p>> Proxychains          [Configure]</p>
+                <p>> Macchanger           [Configure]</p>
+                <p>> VPN                  [Setup]</p>
+                <p>> Docker Setup         [Option & Guide]</p>
+                <br>
+                <p style="color: var(--neon-green-dim);">> Run the install wizard to bootstrap the full Apex stack on any device...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- 1. Menu Navigation Logic ---
+        const menuItems = document.querySelectorAll('.menu-item');
+        const sections = document.querySelectorAll('.section');
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all menu items & sections
+                menuItems.forEach(m => m.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Show corresponding section
+                const targetId = item.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // --- 2. Typewriter Effect for Banner ---
+        const bannerText = "Apex Multi Tool DashBoard";
+        const typewriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < bannerText.length) {
+                typewriterElement.innerHTML += bannerText.charAt(i);
+                i++;
+                // Randomize typing speed slightly for hacker feel
+                let speed = Math.floor(Math.random() * (150 - 50 + 1)) + 50; 
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // Start typing effect on load
+        window.onload = typeWriter;
+
+        // --- 3. PWA Service Worker Registration ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Hacker PWA Service Worker Registered', reg))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>

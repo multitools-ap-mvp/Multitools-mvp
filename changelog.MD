@@ -1,127 +1,213 @@
-# Changelog for
+
+
+
+
+
+# Apex Multi Tools DashBoard 
+# v0.0.3 mvp
+# ChangeLog 2026.04.21
+
+
+
+## - To-Do List v0.0.4
+
+* Create a Icon and Logo based on the Word MultiTools , same theme
+
+* Add a Pwa "install App" icon after " \[ root@apex ]\~# "
+
+ 
+* in the ftp section, change so it is a terminal asking for ftp login.
+
+
+ ######## Loginpage #########
+
+
+
+Create a simple interactive terminal loginpage in the same theme.
+
+User / Password. Database will be a .ini file under production. User dB will be called .env.users
+
 
 ---
-
-- ApexMultiTools 
-
-- Multi Tool Dashboard 
-
+# Added more sections and Tools: 
 ---
 
----
-* All notable changes to this project will be documented in this file.
+## SSH Shell
 
-* The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+Add a ssh Terminal where user Login to send ssh.
 
-* This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## Keylogger
 
----
+Tools:
 
----
+* Windows
+* Linux
+* Android
+* IOS
+* Receiver/Handler Server
 
-<------------------------->
-### Name    | Multi Tools Dashboard 
-### Author  | Amstaff / Apex
-### Team    | Multi Tools
-### Version | 1.0.0 Beta
-### Updated | 2026-04-17
-<-------------------------->
+## Terminals & Shell
 
----
+* Bash [Win]
+* SH [Python]
+* Zsh [Linux]
+* Termux [Android]
+* SHELLS [Remote Shells] 
 
-## [Unreleased] v1.1.0 - Date
 
-### In Production | Coming Features
-```
 
-* Keylogger
-Windows
-Linux
-Android
-IOS
+## Tools
 
-* Terminal Shell 
-For sending cmd to remote 9Boxes
-Bash , SH and? 
+* Markdown Editor 
+* Json Formater 
+* Base64 Encoder & Decrypter
+* OpenAPi/Swagger Editor
+* Curl Sender
 
-* Config & Environments 
-Load .config Files to shell
-Load .ini Files for shell
+## SMTP | Email 
+Host your own Email
 
-* Cloud 
-Selfhosted 2GB Cloud Space
-Save your Credentials and Config Files on Cloud and load them from there.
-End 2 End Encrypted
+Tools:
+* Server | Client
+* Install | Settings
 
-* Tools
-Markdown Editor 
-Json Formater 
-Base64 Encoder & Decrypter
-
-* SMTP | Email 
-Server & Client
-Host your own Email Sever
-Incl DNS ddns Domain
-
-* Ai TTP Runner
-https://github.com/Antonlovesdnb/TTPRunner?fbclid=IwY2xjawRPEZhleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAwzNTA2ODU1MzE3MjgAAR7_sIaCgjXvVRdbFPRY4KM3eAwUHSqDpabuXimE22m2zpRmc8Qg7KzjfdXjJw_aem_gMG2pWLZ1xZjIbnyDKFAnQ
-Autonomous TTP execution agent for penntest
+## Ai TTP Runner
+Autonomous TTP execution agent for penntesting.
 Run a threat search on selected Environment
 Feed threat report To TTP, It builds the attack plan. You approve. It executes.
-Using our ApexLLM Ai Model with 30+ Tools modules you can select from.
-```
 
-### Added
+* TTP Runner
+* Environment
 
-- v1.4 Brazilian Portuguese translation.
-- v1.3 German Translation
-- v1.3 Spanish translation.
-- v1.3 Italian translation.
-- v1.3 Polish translation.
-- v1.3 Ukrainian translation.
+## FTPS (Change FTP Section to) 
+Server | Client
+Auto setup server with 1 click on any device ftp://127.0.0.1:21
+FTPS (FTP over SSL/TLS)
+Uses AES-256-GCM encryption.
 
-### Changed
+* Setup Host
+* FTP Client
 
-- Use frontmatter title & description in each language version template
-- Replace broken OpenGraph image with an appropriately-sized Keep a Changelog 
-  image that will render properly (although in English for all languages)
-- Fix OpenGraph title & description for all languages so the title and 
-description when links are shared are language-appropriate
 
-### Removed
+## OTP Key Vault | OTP Tool
+Generate OTP password for your connected tools 
+OTP scanner/Search on selected environments 
+Automatically Load OTP in selected format
+1 Click Load exposed OTP into any Tool or Site when located in search mode
 
-- Trademark sign previously shown after the project description in version 
-0.3.0
+* OTP Generator
+* OTP Search
+* Settings 
 
-## [1.0.0-beta] - 2026-04-17
 
-### Added
 
-- Centralize api endpoints into `/doc/api.yalm/` so they can be updated easily.
+## Spoofers
 
-### Fixed
+* DDNS
+* GPS/Location
+* Website Cloner 
+* Sms
+* Email
+* Bluetooth
+* Mac address
+* Access Point
+* SeToolKit 
 
-- Fix missing logo in 1.1 pages.
-- Display notice when translation isn't for most recent version.
-- Various broken links, page versions, and indentations.
+## CAPTCHA Solve & Auto Validating 
+Auto captcha
 
-### Changed
+* NopeCHA for text solve 
+* Buster for audio solve
 
-- Upgrade dependencies: Ruby 3.2.1, Middleman, Node etc.
+## Network Manager 
 
-### Removed
+* WiFi | LAN
+"Enumeration & Tools"
 
-- Unused normalize.css file.
-- Identical links assigned in each translation file.
-- Duplicate index file for the english version.
+* Bluetooth
+"Enumeration & Tools"
+* GSM 4/5G
+"Enumeration & Tools"
+
+* Extensive scan functions
+Capture Results in 7+ Formats
+
+* Bruteforcers
+* [WiFi|BT|SiP]
+* 
+* Scrapy Packet Tools
+
+
+## NFC & RFiD 
+Still in BETA Testing
+Tools Currently under Testing:
+NFCGate, NFC Relay between Devices. 
+Proxmark3.
+
+
+## PDF Editor [By:ApexA]
+
+Great LLM/Ai Powered PDF Editor
+Works on all types of pdf
+Can be called from option menu from anywhere on Dashboard to create/edit pdf files.
+
+# Ticket Generator Tool
+
+
+# ApexMultiTools Travel.      -
+
+
+15+ options
+Load a source Ticket
+Convert to MD
+Add/Edit your Information
+Generate pdf
+Working QR Codes
+Created as PDF
+Generate your Ticket
+Optional Email delivery with the SMTP server,
+Or download .pdf
+
+## Config & Environments 
+
+* Load|Save .shell Files
+
+* Load|Save .ini Files for Environments
+
+* Load|Save .config Files for different Setups
+
+* Security Settings [PGP, Cert And other Encryption Settings]
+
+## Cloud 
+Selfhosted 2GB OwnCloud Space
+Save your Credentials,Config Files and Notes on Cloud and quick load them from there.
+End 2 End Encrypted
+
+* Login
+
+
+## Selfhost Menu/Options
+
+* Install Script
+* Dependencies
+* Python install.sh 
+* Proxychains
+* Macchanger
+* VPN
+* Docker Setup Option and Guide
 
 ---
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.1...HEAD
-[1.3.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.0...v1.3.0
-[1.2.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v0.0.0...v1.0.0
----
+
+# MiSC | Suggestions | Discussions 
+
+Make dash more interactive by adding <Right Click menu, Send to [Shell/Editors/Cloud]>
+ApexLLM, Mayby??? 
+GPS/Location Spoofer
 
 
-  
+
+
+
+
+
+
